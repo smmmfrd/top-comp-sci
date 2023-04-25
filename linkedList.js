@@ -36,9 +36,16 @@ class LinkedList {
 		this.tail.setNext(node);
 		this.tail = node;
 	}
+
+	prepend(value) {
+		const node = new Node(value);
+		node.setNext(this.head);
+		this.head = node;
+	}
 }
 
 const list = new LinkedList(1);
 list.append(2);
+list.prepend(3);
 
 console.log(list.printList());
