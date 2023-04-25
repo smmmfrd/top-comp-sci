@@ -27,6 +27,14 @@ class Node {
 			return this.next.find(index - 1);
 		}
 	}
+
+	equals(value) {
+		if(this.value === value) {
+			return true;
+		} else {
+			return this.next ? this.next.equals(value) : false;
+		}
+	}
 }
 
 class LinkedList {
@@ -71,6 +79,10 @@ class LinkedList {
 		this.tail.setNext(null);
 		return popped;
 	}
+
+	contains(value) {
+		return this.head.equals(value);
+	}
 }
 
 const list = new LinkedList(1);
@@ -78,8 +90,11 @@ list.append(2);
 list.prepend(3);
 
 console.log(list.printList());
+
 // console.log(list.size);
 // console.log(list.at(2));
 
-console.log(list.pop());
-console.log(list.printList());
+// console.log(list.pop());
+// console.log(list.printList());
+
+console.log(list.contains(1));
