@@ -20,11 +20,11 @@ class Node {
 		this.next = next;
 	}
 
-	find(index) {
+	findAt(index) {
 		if(index === 0) {
 			return this;
 		} else {
-			return this.next.find(index - 1);
+			return this.next.findAt(index - 1);
 		}
 	}
 
@@ -76,9 +76,9 @@ class LinkedList {
 	}
 
 	at(index) {
-		if(index > this.size) return -1;
+		if(index >= this.size || index < 0) return null;
 
-		return this.head.find(index);
+		return this.head.findAt(index);
 	}
 
 	pop() {
@@ -95,20 +95,50 @@ class LinkedList {
 	find(value) {
 		return this.head.equals(value);
 	}
+
+	insertAt(value, index) {
+		const currentSize = this.size;
+		if(index > currentSize) {
+			console.log(`Cannot insert at index ${index} in a list of size ${currentSize}.`)
+			return;
+		}
+
+		const node = new Node(value);
+		const replacedNode = this.at(index);
+		const replacedNodeParent = this.at(index - 1);
+
+		node.setNext(replacedNode);
+
+		if(replacedNode !== null) {
+			this.tail = node;
+		}
+		
+		if(replacedNodeParent !== null) {
+			replacedNodeParent.setNext(node);
+		} else {
+			this.head = node;
+		}
+	}
 }
 
 const list = new LinkedList(1);
 list.append(2);
 list.prepend(3);
 
-console.log(list.printList());
+console.log("Starting List:\n", list.printList());
 
-// console.log(list.size);
-// console.log(list.at(2));
+// console.log("List Size:\n", list.size);
+// console.log("The value at index of 2:\n", list.at(2));
 
-// console.log(list.pop());
-// console.log(list.printList());
+// console.log("Popped Value\n", list.pop());
+// console.log("New List\n", list.printList());
 
-// console.log(list.contains(1));
+// console.log("This contains the value 1?\n", list.contains(1));
 
-console.log(list.find(1));
+// console.log("Get the Node with the value of 1:\n", list.find(1));
+
+list.insertAt(4, 0);
+list.insertAt(5, 3);
+list.insertAt(6, 1);
+
+console.log("List Post Insert Ats:\n", list.printList());
