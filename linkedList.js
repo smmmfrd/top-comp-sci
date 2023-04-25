@@ -64,12 +64,22 @@ class LinkedList {
 
 		return this.head.find(index);
 	}
+
+	pop() {
+		this.tail = this.at(this.size - 2);
+		const popped = this.tail.next;
+		this.tail.setNext(null);
+		return popped;
+	}
 }
 
 const list = new LinkedList(1);
 list.append(2);
 list.prepend(3);
 
-// console.log(list.printList());
+console.log(list.printList());
 // console.log(list.size);
-console.log(list.at(2));
+// console.log(list.at(2));
+
+console.log(list.pop());
+console.log(list.printList());
