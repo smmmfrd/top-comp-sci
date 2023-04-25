@@ -4,6 +4,10 @@ class Node {
 		this.next = null;
 	}
 
+	get length() {
+		return 1 + (this.next ? this.next.length : 0);
+	}
+
 	print() {
 		return `${this.value}${this.next ? ", " + this.next.print() : "."}`
 	}
@@ -21,6 +25,10 @@ class LinkedList {
 	constructor(value) {
 		this.head = new Node(value);
 		this.tail = this.head;
+	}
+
+	get size() {
+		return this.head.length;
 	}
 
 	printList() {
@@ -49,3 +57,4 @@ list.append(2);
 list.prepend(3);
 
 console.log(list.printList());
+console.log(list.size);
