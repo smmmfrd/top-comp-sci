@@ -9,7 +9,7 @@ class Node {
 	}
 
 	print() {
-		return `${this.value}${this.next ? ", " + this.next.print() : "."}`
+		return `(${this.value}) -> ${this.next ? this.next.print() : "null"}`
 	}
 
 	printValue() {
@@ -28,11 +28,19 @@ class Node {
 		}
 	}
 
-	equals(value) {
+	contains(value) {
 		if(this.value === value) {
 			return true;
 		} else {
-			return this.next ? this.next.equals(value) : false;
+			return this.next ? this.next.contains(value) : false;
+		}
+	}
+
+	equals(value) {
+		if(this.value === value) {
+			return this;
+		} else {
+			return this.next ? this.next.equals(value) : null;
 		}
 	}
 }
@@ -81,6 +89,10 @@ class LinkedList {
 	}
 
 	contains(value) {
+		return this.head.contains(value);
+	}
+
+	find(value) {
 		return this.head.equals(value);
 	}
 }
@@ -97,4 +109,6 @@ console.log(list.printList());
 // console.log(list.pop());
 // console.log(list.printList());
 
-console.log(list.contains(1));
+// console.log(list.contains(1));
+
+console.log(list.find(1));
