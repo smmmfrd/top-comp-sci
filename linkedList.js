@@ -19,6 +19,14 @@ class Node {
 	setNext(next) {
 		this.next = next;
 	}
+
+	find(index) {
+		if(index === 0) {
+			return this;
+		} else {
+			return this.next.find(index - 1);
+		}
+	}
 }
 
 class LinkedList {
@@ -50,11 +58,18 @@ class LinkedList {
 		node.setNext(this.head);
 		this.head = node;
 	}
+
+	at(index) {
+		if(index > this.size) return -1;
+
+		return this.head.find(index);
+	}
 }
 
 const list = new LinkedList(1);
 list.append(2);
 list.prepend(3);
 
-console.log(list.printList());
-console.log(list.size);
+// console.log(list.printList());
+// console.log(list.size);
+console.log(list.at(2));
