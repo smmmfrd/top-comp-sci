@@ -99,7 +99,7 @@ class LinkedList {
 	insertAt(value, index) {
 		const currentSize = this.size;
 		if(index > currentSize) {
-			console.log(`Cannot insert at index ${index} in a list of size ${currentSize}.`)
+			console.error(`Cannot insert at index ${index} in a list of size ${currentSize}.`);
 			return;
 		}
 
@@ -119,6 +119,28 @@ class LinkedList {
 			this.head = node;
 		}
 	}
+
+	removeAt(index) {
+		if(index < 0 || index > this.size) {
+			console.error(`Cannot remove at index ${index}.`);
+			return;
+		}
+
+		// The node being removed.
+		const node = this.at(index);
+		const nodeParent = this.at(index - 1);
+
+		if(nodeParent === null) {
+			// Replacing head.
+			this.head = this.head.next;
+		} else if (node.next === null) {
+			// Replacing tail
+			nodeParent.setNext(null);
+			this.tail = nodeParent;
+		} else {
+			nodeParent.setNext(node.next);
+		}
+	}
 }
 
 const list = new LinkedList(1);
@@ -127,18 +149,23 @@ list.prepend(3);
 
 console.log("Starting List:\n", list.printList());
 
-// console.log("List Size:\n", list.size);
-// console.log("The value at index of 2:\n", list.at(2));
+console.log("List Size:\n", list.size);
+console.log("The value at index of 2:\n", list.at(2));
 
-// console.log("Popped Value\n", list.pop());
-// console.log("New List\n", list.printList());
+console.log("Popped Value\n", list.pop());
+console.log("New List\n", list.printList());
 
-// console.log("This contains the value 1?\n", list.contains(1));
+console.log("This contains the value 1?\n", list.contains(1));
 
-// console.log("Get the Node with the value of 1:\n", list.find(1));
+console.log("Get the Node with the value of 1:\n", list.find(1));
 
 list.insertAt(4, 0);
 list.insertAt(5, 3);
 list.insertAt(6, 1);
 
 console.log("List Post Insert Ats:\n", list.printList());
+
+list.removeAt(0);
+list.removeAt(3);
+
+console.log("List After Removing at Index 0 and 3:\n", list.printList());
