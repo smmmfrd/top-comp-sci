@@ -1,8 +1,16 @@
 class Node {
-  constructor(value, left, right) {
+  constructor(value) {
     this.value = value;
-    this.left = left;
-    this.right = right;
+    this.left = null;
+    this.right = null;
+  }
+
+  setLeft(node) {
+    this.left = node;
+  }
+
+  setRight(node) {
+    this.right = node;
   }
 }
 
@@ -16,12 +24,14 @@ class Tree {
     if (node === null) {
       return;
     }
+
     if (node.right !== null) {
-      prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+      this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
     }
-    console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+    console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
+
     if (node.left !== null) {
-      prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+      this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
     }
   }
 
@@ -33,19 +43,24 @@ class Tree {
     const sortedArr = cleanArr.sort((a,b) => a - b);
 
     // Build tree
-    return this.createTree(sortedArr, 0, sortedArr.length - 1);
+    this.root = this.createTree(sortedArr, 0, sortedArr.length - 1);
   }
 
   createTree(array, start, end) {
     if(start > end) return null;
 
-    let mid = (start + end) / 2;
-    // console.log(`Middle Index ${mid}: ${array[mid]}`);
+    let mid = Math.round((start + end) / 2);
+
+    const root = new Node(array[mid]);
+    root.setLeft(this.createTree(array, start, mid - 1));
+    root.setRight(this.createTree(array, mid + 1, end));
+
+    return root;
   }
 }
 
 const tree = new Tree();
 
-tree.buildTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 6]);
+tree.buildTree([1, 2, 3, 4, 5, 6, 7]);
 
 tree.prettyPrint();
