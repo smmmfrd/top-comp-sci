@@ -211,6 +211,10 @@ class Tree {
     const rightHeight = this.height(root.right);
     return Math.abs(leftHeight - rightHeight) <= 1;
   }
+
+  rebalance() {
+    this.buildTree(this.levelOrder());
+  }
 }
 
 const tree = new Tree();
@@ -233,3 +237,6 @@ tree.prettyPrint();
 // console.log("Depth of Value 3: ", tree.depth(tree.find(3)));
 // console.log("Depth of Value 6: ", tree.depth(tree.find(6)));
 console.log("Tree is balanced? ", tree.isBalanced());
+console.log("Rebalancing Tree.");
+tree.rebalance()
+tree.prettyPrint();
