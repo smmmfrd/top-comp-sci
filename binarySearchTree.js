@@ -128,7 +128,7 @@ class Tree {
     }
   }
 
-  get levelOrder() {
+  levelOrder() {
     if(this.root === null) return [];
 
     const queue = [this.root];
@@ -146,15 +146,48 @@ class Tree {
 
     return res;
   }
+
+  preorder(root = this.root, res = []) {
+    if(root === null) return [];
+
+    res.push(root.value);
+    res = [...res, ...this.preorder(root.left)];
+    res = [...res, ...this.preorder(root.right)];
+
+    return res;
+  }
+
+  inorder(root = this.root, res = []) {
+    if(root === null) return [];
+
+    res = [...res, ...this.preorder(root.left)];
+    res.push(root.value);
+    res = [...res, ...this.preorder(root.right)];
+
+    return res;
+  }
+
+  postorder(root = this.root, res = []) {
+    if(root === null) return [];
+
+    res = [...res, ...this.preorder(root.left)];
+    res = [...res, ...this.preorder(root.right)];
+    res.push(root.value);
+
+    return res;
+  }
 }
 
 const tree = new Tree();
 
 tree.buildTree([1, 2, 3, 5, 6]);
+tree.prettyPrint();
+
 // tree.insert(7);
 // tree.insert(4);
 // tree.delete(3);
 // console.log(tree.find(3));
-console.log(tree.levelOrder);
-
-tree.prettyPrint();
+// console.log(tree.levelOrder());
+console.log(tree.preorder());
+console.log(tree.inorder());
+console.log(tree.postorder());
