@@ -49,7 +49,7 @@ class Tree {
   createTree(array, start, end) {
     if(start > end) return null;
 
-    let mid = Math.round((start + end) / 2);
+    let mid = Math.floor((start + end) / 2);
 
     const root = new Node(array[mid]);
     root.setLeft(this.createTree(array, start, mid - 1));
@@ -57,10 +57,27 @@ class Tree {
 
     return root;
   }
+
+  insert(value, root = this.root) {
+    if(root === null) {
+      root = new Node(value);
+      return root;
+    }
+
+    if(value < root.value) {
+      root.left = this.insert(value, root.left);
+    } else {
+      root.right = this.insert(value, root.right);
+    }
+
+    return root;
+  }
 }
 
 const tree = new Tree();
 
-tree.buildTree([1, 2, 3, 4, 5, 6, 7]);
+tree.buildTree([1, 2, 3, 5, 6]);
+tree.insert(7);
+tree.insert(4);
 
 tree.prettyPrint();
