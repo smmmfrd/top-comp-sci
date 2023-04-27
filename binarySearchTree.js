@@ -176,6 +176,25 @@ class Tree {
 
     return res;
   }
+
+  height(node, h = 0) {
+    if(node.left === null && node.right === null) {
+      // If it has no children, it's a leaf node.
+      return h;
+    }
+
+    if(node.left === null) {
+      return this.height(node.right, h + 1);
+    }
+    if(node.right === null) {
+      return this.height(node.left, h + 1);
+    }
+
+    // If it two children, return the lesser of their two heights.
+    const left = this.height(node.left, h + 1);
+    const right = this.height(node.right, h + 1);
+    return left > right ? right : left;
+  }
 }
 
 const tree = new Tree();
@@ -188,6 +207,8 @@ tree.prettyPrint();
 // tree.delete(3);
 // console.log(tree.find(3));
 // console.log(tree.levelOrder());
-console.log(tree.preorder());
-console.log(tree.inorder());
-console.log(tree.postorder());
+// console.log(tree.preorder());
+// console.log(tree.inorder());
+// console.log(tree.postorder());
+console.log("Height of Value 3: ", tree.height(tree.find(3)));
+console.log("Height of Value 6: ", tree.height(tree.find(6)));
