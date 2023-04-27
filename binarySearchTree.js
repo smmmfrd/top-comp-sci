@@ -72,12 +72,57 @@ class Tree {
 
     return root;
   }
+
+
+  delete(value, root = this.root) {
+    if(root === null) return root;
+
+    if(value < root.value) {
+      root.left = this.delete(value, root.left);
+      return root;
+    } else if (value > root.value){
+      root.right = this.delete(value, root.right);
+      return root;
+    }
+
+    // We only get here if this is the value to be deleted.
+    
+    if(root.left === null) {
+      var temp = root.right;
+      return temp;
+    } else if(root.right === null) {
+      var temp = root.left;
+      return temp;
+    } else {
+      // Two children exist.
+      var parent = root;
+
+      // Find successor
+      var succ = root.right;
+      
+      while(succ.left !== null) {
+        parent = succ;
+        succ = succ.left;
+      }
+
+      if(parent.value != root.value) {
+        parent.left = succ.right;
+      } else {
+        parent.right = succ.right;
+      }
+
+      root.value = succ.value;
+
+      return root;
+    }
+  }
 }
 
 const tree = new Tree();
 
 tree.buildTree([1, 2, 3, 5, 6]);
-tree.insert(7);
-tree.insert(4);
+// tree.insert(7);
+// tree.insert(4);
+tree.delete(3);
 
 tree.prettyPrint();
