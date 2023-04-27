@@ -195,6 +195,16 @@ class Tree {
     const right = this.height(node.right, h + 1);
     return left > right ? right : left;
   }
+
+  depth(node, root = this.root, d = 0) {
+    if(node.value === root.value) return d;
+
+    if(node.value < root.value) {
+      return this.depth(node, root.left, d + 1);
+    } else {
+      return this.depth(node, root.right, d + 1);
+    }
+  }
 }
 
 const tree = new Tree();
@@ -210,5 +220,7 @@ tree.prettyPrint();
 // console.log(tree.preorder());
 // console.log(tree.inorder());
 // console.log(tree.postorder());
-console.log("Height of Value 3: ", tree.height(tree.find(3)));
-console.log("Height of Value 6: ", tree.height(tree.find(6)));
+// console.log("Height of Value 3: ", tree.height(tree.find(3)));
+// console.log("Height of Value 6: ", tree.height(tree.find(6)));
+console.log("Depth of Value 3: ", tree.depth(tree.find(3)));
+console.log("Depth of Value 6: ", tree.depth(tree.find(6)));
