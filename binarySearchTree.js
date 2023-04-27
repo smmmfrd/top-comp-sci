@@ -147,31 +147,31 @@ export class Tree {
     return res;
   }
 
-  preorder(root = this.root, res = []) {
+  preOrder(root = this.root, res = []) {
     if (root === null) return [];
 
     res.push(root.value);
-    res = [...res, ...this.preorder(root.left)];
-    res = [...res, ...this.preorder(root.right)];
+    res = [...res, ...this.preOrder(root.left)];
+    res = [...res, ...this.preOrder(root.right)];
 
     return res;
   }
 
-  inorder(root = this.root, res = []) {
+  inOrder(root = this.root, res = []) {
     if (root === null) return [];
 
-    res = [...res, ...this.preorder(root.left)];
+    res = [...res, ...this.inOrder(root.left)];
     res.push(root.value);
-    res = [...res, ...this.preorder(root.right)];
+    res = [...res, ...this.inOrder(root.right)];
 
     return res;
   }
 
-  postorder(root = this.root, res = []) {
+  postOrder(root = this.root, res = []) {
     if (root === null) return [];
 
-    res = [...res, ...this.preorder(root.left)];
-    res = [...res, ...this.preorder(root.right)];
+    res = [...res, ...this.postOrder(root.left)];
+    res = [...res, ...this.postOrder(root.right)];
     res.push(root.value);
 
     return res;
@@ -213,6 +213,6 @@ export class Tree {
   }
 
   rebalance() {
-    this.buildTree(this.levelOrder());
+    this.buildTree(this.inOrder());
   }
 }
