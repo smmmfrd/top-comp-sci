@@ -73,7 +73,6 @@ class Tree {
     return root;
   }
 
-
   delete(value, root = this.root) {
     if(root === null) return root;
 
@@ -116,6 +115,18 @@ class Tree {
       return root;
     }
   }
+
+  find(value, root = this.root) {
+    if(root.value === value) {
+      return root;
+    }
+
+    if(value < root.value) {
+      return this.find(value, root.left);
+    } else {
+      return this.find(value, root.right);
+    }
+  }
 }
 
 const tree = new Tree();
@@ -123,6 +134,7 @@ const tree = new Tree();
 tree.buildTree([1, 2, 3, 5, 6]);
 // tree.insert(7);
 // tree.insert(4);
-tree.delete(3);
+// tree.delete(3);
+console.log(tree.find(3));
 
 tree.prettyPrint();
