@@ -127,6 +127,25 @@ class Tree {
       return this.find(value, root.right);
     }
   }
+
+  get levelOrder() {
+    if(this.root === null) return [];
+
+    const queue = [this.root];
+    const res = [];
+    while (queue.length > 0) {
+      let n = queue.shift();
+      res.push(n.value);
+      if(n.left) {
+        queue.push(n.left);
+      }
+      if(n.right) {
+        queue.push(n.right);
+      }
+    }
+
+    return res;
+  }
 }
 
 const tree = new Tree();
@@ -135,6 +154,7 @@ tree.buildTree([1, 2, 3, 5, 6]);
 // tree.insert(7);
 // tree.insert(4);
 // tree.delete(3);
-console.log(tree.find(3));
+// console.log(tree.find(3));
+console.log(tree.levelOrder);
 
 tree.prettyPrint();
