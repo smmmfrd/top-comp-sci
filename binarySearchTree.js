@@ -14,7 +14,7 @@ class Node {
   }
 }
 
-class Tree {
+export class Tree {
   constructor() {
     this.root = null;
   }
@@ -216,27 +216,3 @@ class Tree {
     this.buildTree(this.levelOrder());
   }
 }
-
-const tree = new Tree();
-
-tree.buildTree([1, 2, 3, 5, 6]);
-
-tree.insert(7);
-tree.insert(4);
-tree.delete(2);
-
-tree.prettyPrint();
-
-// console.log(tree.find(3));
-// console.log(tree.levelOrder());
-// console.log(tree.preorder());
-// console.log(tree.inorder());
-// console.log(tree.postorder());
-// console.log("Height of Value 3: ", tree.height(tree.find(3)));
-// console.log("Height of Value 6: ", tree.height(tree.find(6)));
-// console.log("Depth of Value 3: ", tree.depth(tree.find(3)));
-// console.log("Depth of Value 6: ", tree.depth(tree.find(6)));
-console.log("Tree is balanced? ", tree.isBalanced());
-console.log("Rebalancing Tree.");
-tree.rebalance()
-tree.prettyPrint();
